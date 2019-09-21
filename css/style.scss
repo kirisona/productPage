@@ -1,0 +1,306 @@
+// input::-webkit-outer-spin-button,
+// input::-webkit-inner-spin-button {
+//   /* display: none; <- Crashes Chrome on hover */
+//   -webkit-appearance: none;
+//   margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+// }
+
+// input[type="number"] {
+//   -moz-appearance: textfield; /* Firefox */
+// }
+
+@font-face {
+  font-family: "open_sansregular";
+  src: url("../fonts/opensans-regular-webfont.woff2") format("woff2"),
+    url("../fonts/opensans-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+// контейнер по умолчанию. Отступ между колонками
+$colGups: 7px;
+
+// размер текста
+$textFont-size: 1rem; // 16px
+$linkColor: blue;
+
+// контрольные точки, на которых наш макет будет перестраиваться (могут меняться зависимости от дизайна)
+$breakpoints: (
+  xs: 0,
+  sm: 480px,
+  md: 767px,
+  lg: 979px,
+  xl: 1200px,
+  xxl: 1440px,
+  xxxl: 1700px
+);
+
+$columns: 12;
+
+@each $breakpoint in $breakpoints {
+  $name: nth($breakpoint, 1);
+  $size: nth($breakpoint, 2);
+
+  @media only screen and (min-width: $size) {
+    [class*="col-#{$name}"] {
+      box-sizing: border-box;
+      flex: 0 0 auto;
+      padding-right: $colGups;
+      padding-left: $colGups;
+    }
+    @for $i from 1 through $columns {
+      .col-#{$name}-#{$i} {
+        flex-basis: 100% / $columns * $i;
+        max-width: 100% / $columns * $i;
+      }
+    }
+    @for $i from 1 through $columns {
+      .col-#{$name}-offset-#{$i} {
+        margin-left: 100% / $columns * $i;
+      }
+    }
+  }
+}
+
+// variables
+$mainColor: #444;
+$mainBackground: #fff;
+
+//===========  mixins start ===========//
+
+// columns
+$columns: 12;
+$col: $columns;
+
+@mixin col($col, $columns) {
+  width: percentage($col/$columns);
+}
+
+//===========  mixins end ===========//
+
+@mixin col-create() {
+  @while $col > 0 {
+    .col-#{$col} {
+      @include col($col, $columns);
+    }
+
+    $col: $col - 1;
+  }
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+a {
+  color: inherit;
+}
+
+body {
+  background-color: #eed35a83;
+  font-family: "open_sansregular";
+}
+// layout
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+[class^="col"] {
+  width: 100%;
+  min-height: 1px;
+}
+
+@include col-create();
+
+.hero {
+  min-height: 50px;
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    line-height: 50px;
+  }
+
+  &__logo {
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  &__social {
+    display: flex;
+    font-size: 20px;
+  }
+
+  &__item + &__item {
+    margin-left: 20px;
+  }
+}
+
+.product {
+  font-size: 0;
+  &__title {
+    font-size: 23px;
+    font-weight: 700;
+    text-transform: capitalize;
+    line-height: 2;
+  }
+
+  &__choise {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  &__btn {
+    font-size: 17px;
+    line-height: 1.5;
+    padding: 0 10px;
+    margin: 10px 0;
+    text-align: center;
+    background-color: burlywood;
+    outline: transparent;
+    border-radius: 5px;
+  }
+
+  &__btn + &__btn {
+    margin-left: 10px;
+  }
+
+  &__item {
+    margin-bottom: 10px;
+  }
+
+  &__name {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  &__description {
+    font-size: 17px;
+    line-height: 1.5;
+    text-align: justify;
+  }
+
+  &__about {
+    background-color: #fff;
+    padding: 10px;
+  }
+
+  &__order {
+    font-size: 17px;
+    line-height: 2.5;
+    padding: 0 20px;
+    margin: 10px 0;
+    text-align: center;
+    background-color: burlywood;
+    outline: transparent;
+    border-radius: 5px;
+  }
+
+  &__img {
+    img {
+      max-width: 100%;
+      object-fit: contain;
+    }
+  }
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  .wrapper {
+    position: relative;
+    height: 100%;
+  }
+
+  .active {
+    display: block;
+  }
+
+  &__wrapper {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    margin-left: -15px;
+  }
+
+  &__form {
+    width: 100%;
+    background-color: #e2d080;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    box-sizing: border-box;
+  }
+
+  &__text {
+    line-height: 1.5;
+    font-size: 17px;
+  }
+
+  input {
+    width: 95%;
+    padding: 10px 5px;
+  }
+
+  &__send {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  [type="submit"],
+  [type="reset"] {
+    width: initial;
+    margin: 10px 10px 5px 0;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: 8px;
+  }
+
+  &__close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: red;
+    color: #fff;
+    width: 20px;
+    height: 22px;
+    border: none;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+  }
+}

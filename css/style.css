@@ -1056,4 +1056,8 @@ body {
 .active {
   display: block;
 }
+
+.none {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */

@@ -223,10 +223,6 @@ body {
     height: 100%;
   }
 
-  .active {
-    display: block;
-  }
-
   &__wrapper {
     position: absolute;
     top: 50%;
@@ -303,4 +299,8 @@ body {
   input[type="number"] {
     -moz-appearance: textfield; /* Firefox */
   }
+}
+
+.active {
+  display: block;
 }

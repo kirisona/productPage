@@ -958,10 +958,6 @@ body {
   height: 100%;
 }
 
-.popup .active {
-  display: block;
-}
-
 .popup__wrapper {
   position: absolute;
   top: 50%;
@@ -1055,5 +1051,9 @@ body {
 .popup input[type="number"] {
   -moz-appearance: textfield;
   /* Firefox */
+}
+
+.active {
+  display: block;
 }
 /*# sourceMappingURL=style.css.map */

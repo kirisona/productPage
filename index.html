@@ -228,39 +228,40 @@
 
     <section class="popup" id="popup">
       <div class="container wrapper">
-        <div class="popup__wrapper">
+        <div class="popup__wrapper col-xxxl-8 col-xxl-8 col-xl-8 col-lg-8 col-md-10 col-sm-10 col-xs-10">
           <form
             action=""
             method=""
-            class="popup__form col-xxxl-8 col-xxl-8 col-xl-8 col-lg-8 col-md-10 col-sm-10 col-xs-10"
+            class="popup__form"
           >
             <button class="popup__close">x</button>
             <div class="popup__item">
               <p class="popup__text">Your name</p>
-              <input type="text" name="Name" required />
+              <input type="text" name="Name" required id="name" placeholder="John" pattern="[A-Za-z]{3,30}"/>
             </div>
             <div class="popup__item">
               <p class="popup__text">Your surname</p>
-              <input type="text" name="Surname" required />
+              <input type="text" name="Surname" required id="surname" placeholder="Jonson" pattern="[A-Za-z]{3,30}"/>
             </div>
             <div class="popup__item">
               <p class="popup__text">Your phonenumber</p>
-              <input type="tel" name="Phonenumber" required />
+              <input type="tel" name="Phonenumber" required id="phone" placeholder="380xxxxxxxxx"
+              pattern="380[0-9]{9}">
             </div>
             <div class="popup__item">
               <p class="popup__text">Your email</p>
-              <input type="email" name="Email" required />
+              <input type="email" name="Email" required id="email" placeholder="johnjonson@mail.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
             </div>
             <div class="popup__item">
               <p class="popup__text">Password</p>
-              <input type="password" name="password" required />
+              <input type="password" name="password" id="password" required minlength="3" maxlength="30"/>
             </div>
             <div class="popup__item">
               <p class="popup__text">Confirm password</p>
-              <input type="password" name="confirm_password" required />
+              <input type="password" name="confirm_password" required id="confirm_password" minlength="3" maxlength="30"/>
             </div>
             <div class="popup__send">
-              <input type="submit" value="Submit" />
+              <input type="submit" value="Submit"/>
               <input type="reset" value="Reset" />
             </div>
           </form>

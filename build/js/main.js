@@ -88,11 +88,12 @@ email.oninvalid = function(event) {
 form.addEventListener("submit", submitForm);
 
 function submitForm(event) {
-  alert(
-    "Thank you for your order. Our consultant will contact you within two hours."
-  );
   if (password.value !== passwordConfirm.value) {
     alert("Password and password confirmation do not match. Please try again");
     form.removeEventListener("submit", submitForm);
+  } else {
+    alert(
+      "Thank you for your order. Our consultant will contact you within two hours."
+    );
   }
 }
